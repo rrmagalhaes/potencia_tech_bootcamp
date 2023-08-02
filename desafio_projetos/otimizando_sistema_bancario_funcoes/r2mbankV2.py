@@ -103,15 +103,20 @@ def criar_cliente(clientes):
             return 'Cliente Cadastrado com Sucesso'
         
 
-#def listar_clientes(clientes):
+def listar_clientes(clientes):
+    if clientes != []:
+        for cli in clientes:
+            data = list(cli.items())
+            print(f"Nome: {data[0][1]['nome']:50} CPF: {data[0][0]:20} Endereço: {data[0][1]['endereco']:130} ")
+    else:
+        print("Não existe clientes cadastrados.")
 
 
-
-'''
+#'''
 while True:
     print(start)
     choice = str(input("Favor selecione a opção desejada: "))
-    if choice not in ['0','1','2','3','4']:
+    if choice not in ['0','1','2','3','4','5']:
         print("Opção inválida!".upper().center(21))
         continue
 
@@ -156,7 +161,8 @@ while True:
     
     # LISTAR CLIENTES
     elif choice == "5":
-        pass
+        print("LISTA DE CLIENTES".center(200, '-'))
+        listar_clientes(clientes)
+        print("-" * 200)
 
-
-'''
+#'''
