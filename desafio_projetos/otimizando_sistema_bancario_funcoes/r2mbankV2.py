@@ -29,7 +29,17 @@ clientes = []
 
 contas = []
 
-def depositar(saldo, valor, extrato, /,):
+def depositar(saldo, valor, extrato, /,):    
+    """Função responsável por realizar a operação de depósito
+
+    Args:
+        saldo (float): Valor existente em conta
+        valor (float): Valor que será depositado
+        extrato (str): Acumula mensagens referentes as operações
+
+    Returns:
+        str: saldo e extrato
+    """
     if valor <= 0:
             print("OPERAÇÃO INVÁLIDA")
             print("O valor de depósito precisar ser positivo!")
@@ -41,6 +51,19 @@ def depositar(saldo, valor, extrato, /,):
 
 
 def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
+    """Função responsável por realizar a operação de saque
+
+    Args:
+        saldo (float): Valor existente em conta
+        valor (float): Valor que será sacado
+        extrato (str): Acumula mensagens referentes as operações
+        limite (float): Valor financeiro máximo permitido para saque
+        numero_saques (int): Quantidade de saques realizados
+        limite_saques (int): Quantidade limite de saques permitidos
+
+    Returns:
+        str: saldo e extrato
+    """
     if numero_saques == limite_saques:
             print(f"Saque indisponível - Seu limite diário de saques por dia é apenas {limite_saques} saques.")  
     elif valor > limite:
@@ -57,6 +80,12 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
 
 
 def ver_extrato(saldo, /, *, extrato):
+    """Fançao responsável por exibir as informações de extrato bancário
+
+    Args:
+        saldo (float): Valor existente em conta
+        extrato (str): Acumula mensagens referentes as operações
+    """
     print("====================== EXTRATO ==============================")
     print(f"{extrato}")
     print(f"SALDO ATUAL => R$ {saldo:.2f}")
@@ -65,6 +94,15 @@ def ver_extrato(saldo, /, *, extrato):
 
 
 def existe_cliente(cpf, clientes):
+    """Valida a existência do clientes atráves do "cpf" repassado na lista "clientes".
+
+    Args:
+        cpf (str): CPF do cliente a consultar
+        clientes (list): Lista com as informações do clientes cadastrados
+
+    Returns:
+        bool: Retorna o valor booleano da verificação
+    """
     for cli in clientes:
         if cpf in cli:
             existe = True
@@ -78,6 +116,15 @@ def existe_cliente(cpf, clientes):
 
 
 def nome_cliente(cpf, clientes=clientes):
+    """Funação responsável por retornar o nome do cliente em relação ao "cpf" repassado e consultado na lista "clientes".
+
+    Args:
+        cpf (str): CPF do cliente a consultar
+        clientes (list): Lista com as informações do clientes cadastrados
+
+    Returns:
+        str: Retorna o nome do cliente, caso seja encontrado.
+    """
     if clientes != []:
         for cli in clientes:                  
             data = list(cli.items())
@@ -91,6 +138,14 @@ def nome_cliente(cpf, clientes=clientes):
 
 
 def solicitar_dados(cpf):
+    """Função responsável por solicitar as informações do cliente para cadastro.
+
+    Args:
+        cpf (str): CPF do cliente a consultar
+
+    Returns:
+        dict: Retorna um dicionário com as informações coletadas em tela
+    """
     print("Para realizar o cadastro, digite as informações conforme solicitado.")
 
     nome = input("NOME COMPLETO: ").upper()
@@ -110,6 +165,14 @@ def solicitar_dados(cpf):
      
 
 def criar_cliente(clientes):
+    """Função responsável por realizar o cadastro do cliente na lista "clientes" utilizando o cpf como chave única.
+
+    Args:
+        clientes (list): Lista com as informações do clientes cadastrados
+
+    Returns:
+        str: Retorna mensagem de confirmação do cadastro quando assim ocorrer.
+    """
     cpf = input("CPF: ")
     if clientes == []:
         dados = solicitar_dados(cpf)
@@ -124,6 +187,14 @@ def criar_cliente(clientes):
         
 
 def listar_clientes(clientes):
+    """Função responsável por listar os clientes repassados na lista "clientes".
+
+    Args:
+        clientes (list): Lista com as informações do clientes cadastrados
+
+    Returns:
+        str: Retorna todos os clientes cadastrado na lista "clientes" com a informação de Nome, CPF e Endereço
+    """
     if clientes != []:
         for cli in clientes:
             data = list(cli.items())
@@ -133,6 +204,15 @@ def listar_clientes(clientes):
 
 
 def criar_conta(cpf, contas):
+    """Função responsável por organizar as informações em uma dict para futura criação de conta.
+
+    Args:
+        cpf (str): CPF do cliente que será o titular da conta
+        clientes (list): Lista com as informações do clientes cadastrados
+
+    Returns:
+        dict: Retorna um dicionário com os dados da conta queserá criada.
+    """
     AGENCIA = "0001"
     total_contas = len(contas)
     numero_conta = str(total_contas + 1)
@@ -141,6 +221,14 @@ def criar_conta(cpf, contas):
 
 
 def listar_contas(contas):
+    """Função responsável por listar as contas repassadas na lista "contas".
+
+    Args:
+        contas (list): Lista com as informações das contas cadastrados
+
+    Returns:
+        str: Retorna todos as contas cadastrado na lista "contas" com a informação de Número da conta, agência, cpf do titular e também do nome do titular.
+    """
     if contas != []:
         for conta in contas:            
             data = list(conta.items())
