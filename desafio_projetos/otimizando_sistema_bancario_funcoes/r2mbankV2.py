@@ -8,6 +8,7 @@ start = '''
 [3] - EXTRATO
 [4] - CADASTRAR CLIENTE
 [5] - LISTAR CLIENTES
+[6] - CRIAR CONTA
 [0] - SAIR
 
 ======================
@@ -21,6 +22,7 @@ numero_saques = 0
 LIMITE_QTD_SAQUE = 3
 LIMITE_VALOR_SAQUE = 500
 clientes = []
+contas = []
 
 def depositar(saldo, valor, extrato, /,):
     if valor <= 0:
@@ -112,11 +114,19 @@ def listar_clientes(clientes):
         print("Não existe clientes cadastrados.")
 
 
+def criar_conta(cpf, contas):
+    AGENCIA = "0001"
+    total_contas = len(contas)
+    numero_conta = str(total_contas + 1)
+    conta = {"agencia": AGENCIA, "numero": numero_conta, "cpf_titular": cpf}
+    return conta
+
+
 #'''
 while True:
     print(start)
     choice = str(input("Favor selecione a opção desejada: "))
-    if choice not in ['0','1','2','3','4','5']:
+    if choice not in ['0','1','2','3','4','5','6']:
         print("Opção inválida!".upper().center(21))
         continue
 
@@ -161,8 +171,21 @@ while True:
     
     # LISTAR CLIENTES
     elif choice == "5":
-        print("LISTA DE CLIENTES".center(200, '-'))
+        print("LISTA DE CLIENTES".center(200, '-') + "\n")
         listar_clientes(clientes)
         print("-" * 200)
 
+    # CRIAR CONTA
+    elif choice == '6':
+        cpf = input("Insira o CPF para qual deseja abrir a conta: ")
+        if clientes == []:
+            print("Cliente não cadastrado na base de dados.")
+        else:
+            existe = existe_cliente(cpf, clientes)
+            if existe == False:
+                print("Cliente não cadastrado na base de dados.")
+            else:
+                conta = criar_conta(cpf, contas)
+                contas.append(conta)
+                print(f"Conta número {conta['numero']} criada.")
 #'''
