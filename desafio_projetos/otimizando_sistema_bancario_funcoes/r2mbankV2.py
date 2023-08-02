@@ -6,6 +6,8 @@ start = '''
 [1] - DEPOSITAR
 [2] - SACAR
 [3] - EXTRATO
+[4] - CADASTRAR CLIENTE
+[5] - LISTAR CLIENTES
 [0] - SAIR
 
 ======================
@@ -18,6 +20,7 @@ extrato = f""
 numero_saques = 0
 LIMITE_QTD_SAQUE = 3
 LIMITE_VALOR_SAQUE = 500
+clientes = []
 
 def depositar(saldo, valor, extrato, /,):
     if valor <= 0:
@@ -45,9 +48,6 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
         else:
             print("Saldo insuficiente!")
 
-    
-#   return saldo, extrato
-
 
 def ver_extrato(saldo, /, *, extrato):
     print("====================== EXTRATO ==============================")
@@ -57,10 +57,61 @@ def ver_extrato(saldo, /, *, extrato):
     input("Pressione ENTER voltar ao menu inicial!")
 
 
+def existe_cliente(cpf, clientes):
+    for cli in clientes:
+        if cpf in cli:
+            existe = True
+            #print("Cliente já encontrado!")
+            break    
+        else:
+            existe = False
+            #print("Cliente não encontrado!")
+    
+    return existe
+
+
+def solicitar_dados(cpf):
+    print("Para realizar o cadastro, digite as informações conforme solicitado.")
+
+    nome = input("NOME COMPLETO: ").upper()
+    data_nascimento = input("DATA DE NASCIMENTO: ")
+
+    logradouro = input("LOGRADOURO (RUA/AV/TRAV): ").upper()
+    numero = input("NÚMERO: ")
+    bairro = input("BAIRRO: ").upper()
+    cidade = input("CIDADE: ").upper()
+    uf = input("UF: ").upper()
+
+    endereco = f"{logradouro}, {numero} - {bairro} - {cidade}/{uf}"
+
+    cliente = { cpf : {"nome": nome, "data_nascimento": data_nascimento, "endereco": endereco }}
+
+    return cliente
+     
+
+def criar_cliente(clientes):
+    cpf = input("CPF: ")
+    if clientes == []:
+        dados = solicitar_dados(cpf)
+        clientes.append(dados)
+        return 'Cliente Cadastrado com Sucesso'
+    else:
+        existe = existe_cliente(cpf, clientes)
+        if existe == False:
+            dados = solicitar_dados(cpf)
+            clientes.append(dados)
+            return 'Cliente Cadastrado com Sucesso'
+        
+
+#def listar_clientes(clientes):
+
+
+
+'''
 while True:
     print(start)
     choice = str(input("Favor selecione a opção desejada: "))
-    if choice not in ['0','1','2','3']:
+    if choice not in ['0','1','2','3','4']:
         print("Opção inválida!".upper().center(21))
         continue
 
@@ -92,3 +143,20 @@ while True:
     # EXTRATO
     elif choice == "3":
         ver_extrato(saldo, extrato=extrato)
+
+
+    # CADASTRAR CLIENTE
+    elif choice == "4":
+        cadastro = criar_cliente(clientes)
+        if cadastro != None:
+            print(cadastro)
+        else:
+            print("Cadastro não permitido, o CPF já existe em nossa base!")
+
+    
+    # LISTAR CLIENTES
+    elif choice == "5":
+        pass
+
+
+'''
