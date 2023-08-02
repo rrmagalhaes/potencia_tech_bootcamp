@@ -9,6 +9,7 @@ start = '''
 [4] - CADASTRAR CLIENTE
 [5] - LISTAR CLIENTES
 [6] - CRIAR CONTA
+[7] - LISTAR CONTAS
 [0] - SAIR
 
 ======================
@@ -21,7 +22,11 @@ extrato = f""
 numero_saques = 0
 LIMITE_QTD_SAQUE = 3
 LIMITE_VALOR_SAQUE = 500
+
 clientes = []
+# Usado em testes
+#clientes = [{ '027' : {"nome": 'Renato', "data_nascimento": '26', "endereco": 'Rua do seu zé' }}, { '033' : {"nome": 'Camila', "data_nascimento": '26', "endereco": 'Rua do seu zé' }}]
+
 contas = []
 
 def depositar(saldo, valor, extrato, /,):
@@ -70,6 +75,19 @@ def existe_cliente(cpf, clientes):
             #print("Cliente não encontrado!")
     
     return existe
+
+
+def nome_cliente(cpf, clientes=clientes):
+    if clientes != []:
+        for cli in clientes:                  
+            data = list(cli.items())
+            cpf_cli = data[0][0]
+            if cpf == cpf_cli:
+                return data[0][1]['nome']
+        
+        print("Não existe cadastro pro cpf solicitado.")
+    else:
+        print("Não existe clientes cadastrados.")  
 
 
 def solicitar_dados(cpf):
@@ -122,11 +140,23 @@ def criar_conta(cpf, contas):
     return conta
 
 
+def listar_contas(contas):
+    if contas != []:
+        for conta in contas:            
+            data = list(conta.items())
+            cpf_cli = data[2][1]
+            nome_cli = nome_cliente(cpf_cli)
+            print(f"Número da conta: {data[1][1]:5} Agência: {data[0][1]:5} CPF do titular: {data[2][1]:12} Nome do titular: {nome_cli:50}")
+    else:
+        print("Não existem contas cadastradas.")
+
+
+
 #'''
 while True:
     print(start)
     choice = str(input("Favor selecione a opção desejada: "))
-    if choice not in ['0','1','2','3','4','5','6']:
+    if choice not in ['0','1','2','3','4','5','6','7']:
         print("Opção inválida!".upper().center(21))
         continue
 
@@ -188,4 +218,11 @@ while True:
                 conta = criar_conta(cpf, contas)
                 contas.append(conta)
                 print(f"Conta número {conta['numero']} criada.")
+
+
+    # LISTAR CONTAS
+    elif choice == "7":
+        print("LISTA DE CONTAS".center(100, '-') + "\n")
+        listar_contas(contas)
+        print("-" * 100)
 #'''
