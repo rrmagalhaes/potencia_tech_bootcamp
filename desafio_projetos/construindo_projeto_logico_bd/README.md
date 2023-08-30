@@ -33,14 +33,14 @@ select count(*) Número_de_Pedidos, Fname Nome from (clients c inner join orders
 
 Com essa query consegui recuperar a quantidade de pedidos realizados para cada cliente, porém tive que realizar mais uma inserção de pedido para que houvesse um, cliente com pelo menos dois pedidos, o restante retornou um.
 
-<img src="/img_reademe/pedidos_por_clientes.png">
+<img src="/img_readme/pedidos_por_clientes.png">
 
 ### Algum vendedor também é fornecedor?
 select * from (seller s inner join supplier sp on s.CNPJ = sp.CNPJ);
 
 Ao executar a query acima nenhum dado foi retornado, o que mostra que não existe vendedores que também sejam fornecedores no nosso exemplo.
 
-<img src="/img_reademe/fornecedores_vendedores.png">
+<img src="/img_readme/fornecedores_vendedores.png">
 
 ### Relação de produtos fornecedores e estoques;
 select Pname Produto, SocialName Fornecedor, Quantity Estoque from product p 
@@ -49,7 +49,7 @@ select Pname Produto, SocialName Fornecedor, Quantity Estoque from product p
 
 Utilizando a query acima conseguimos responder a essa pergunta.
 
-<img src="/img_reademe/produtos_fornecedores_estoques.png">
+<img src="/img_readme/produtos_fornecedores_estoques.png">
 
 ### Relação de nomes dos fornecedores e nomes dos produtos;
 select SocialName Fornecedor, Pname Produto from product p 
@@ -58,4 +58,4 @@ select SocialName Fornecedor, Pname Produto from product p
 
 Utilizando a query acima conseguimos responder a essa pergunta.  
 
-<img src="/img_reademe/fornecedores_vendedores.png">
+<img src="/img_readme/fornecedores_vendedores.png">
