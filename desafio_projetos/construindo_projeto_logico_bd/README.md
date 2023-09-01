@@ -58,4 +58,8 @@ select SocialName Fornecedor, Pname Produto from product p
 
 Utilizando a query acima conseguimos responder a essa pergunta.  
 
+<<<<<<< HEAD
 <img src="./img_readme/fornecedores_vendedores.png">
+=======
+<img src="./img_readme/fornecedores_vendedores.png">
+>>>>>>> 141c9e988f31b2b2e375527cd289fd54242549af
