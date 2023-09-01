@@ -33,7 +33,7 @@ create table empresas(
 		IdEmpresa int auto_increment primary key,
         RazaoSocial varchar(100) not null,
         NomeFantasia varchar(100) not null,
-        CNPJ char(11) not null,
+        CNPJ char(15) not null,
         Telefone varchar(11) not null,        
         Email varchar(100) not null,
         Endereco varchar(255) not null,
@@ -74,9 +74,9 @@ create table orcamentos(
         Solicitante_IdPessoa int,
         Orc_IdCliente int,
         Orc_IdCarro int,
-        valor float not null,
+        Valor float not null,
         Desconto float,
-        Data date not null,
+        Orc_Data date not null,
         Validade date,
         FormaPagamento enum('PIX', 'DEBITO', 'CREDITO', 'DINHEIRO', 'BOLETO') default 'BOLETO' not null,
         Aprovado enum('SIM', 'NÃO', 'AGUARDANDO') default 'AGUARDANDO',
@@ -90,10 +90,12 @@ alter table orcamentos auto_increment=1;
 create table os(
 		IdOs int auto_increment primary key,
         Os_IdOrcamento int,
+        Os_IdFuncionario int,
         Emissao date not null,
         Conclusao date,
         DescricaoServico varchar(100) not null,
         Obs varchar(255),
-        constraint fk_os_orcamento foreign key (Os_IdOrcamento) references orcamentos(IdOrcamento)
+        constraint fk_os_orcamento foreign key (Os_IdOrcamento) references orcamentos(IdOrcamento),
+        constraint fk_os_funcionario foreign key (Os_IdFuncionario) references funcionarios(IdFuncionario)
 );
 alter table os auto_increment=1;
